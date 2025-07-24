@@ -2,6 +2,7 @@ package br.com.ricardo.jjsul.controller;
 
 import br.com.ricardo.jjsul.dto.RelatorioDTO;
 import br.com.ricardo.jjsul.service.RelatorioService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,22 +19,16 @@ public class RelatorioController {
 
 	@GetMapping(value = "/{motorista}")
 	public ResponseEntity<List<RelatorioDTO>> findByMotorista(@PathVariable String motorista) {
-		List<RelatorioDTO> relatorios = relatorioService.findByMotorista(motorista);
-		if (relatorios.isEmpty()) {
-			return ResponseEntity.noContent().build(); // 204 No Content
-		}
-		return ResponseEntity.ok(relatorios); // 200 OK com a lista
+
+		return ResponseEntity.ok(relatorioService.findByMotorista(motorista)); // 200 OK com a lista
 	}
 	@GetMapping
 	public ResponseEntity<org.springframework.data.domain.Page<RelatorioDTO>> findAll(Pageable pageable) {
 		Page<RelatorioDTO> relatorios = relatorioService.findAll(pageable);
-		if (relatorios.isEmpty()) {
-			return ResponseEntity.noContent().build(); // 204 No Content
-		}
 		return ResponseEntity.ok(relatorios); // 200 OK com a paginação
 	}
 	@PostMapping
-	public ResponseEntity<RelatorioDTO> insert(@RequestBody RelatorioDTO dto) {
+	public ResponseEntity<RelatorioDTO> insert(@Valid @RequestBody RelatorioDTO dto) {
 		RelatorioDTO relatorio = relatorioService.insert(dto);
 		if (relatorio == null) {
 			return ResponseEntity.badRequest().build(); // 400 Bad Request

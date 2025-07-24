@@ -1,7 +1,6 @@
 package br.com.ricardo.jjsul.entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.PastOrPresent;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

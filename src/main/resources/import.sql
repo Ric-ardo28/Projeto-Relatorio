@@ -7,4 +7,4 @@ INSERT INTO relatorio (data, hora, motorista, placa_veiculo, valor) VALUES ('202
 INSERT INTO relatorio (data, hora, motorista, placa_veiculo, valor) VALUES ('2024-06-07', '15:30:00', 'Juliana Alves', 'STU7G89', 195.90);
 INSERT INTO relatorio (data, hora, motorista, placa_veiculo, valor) VALUES ('2024-06-08', '16:45:00', 'Rafael Dias', 'VWX8H90', 205.00);
 INSERT INTO relatorio (data, hora, motorista, placa_veiculo, valor) VALUES ('2024-06-09', '18:00:00', 'Fernanda Melo', 'YZA9I01', 230.10);
-INSERT INTO relatorio (data, hora, motorista, placa_veiculo, valor) VALUES ('2024-06-10', '19:15:00', 'Bruno Pires', 'BCD0J12', 160.80);
+INSERT INTO relatorio (data, hora, motorista, placa_veiculo, valor) VALUES ('2026-06-10', '19:15:00', 'Bruno Pires', 'BCD0J12', 160.80);
