@@ -36,7 +36,7 @@ public class RelatorioController {
 		return ResponseEntity.status(201).body(relatorio); // 201 Created com o novo relatorio
 	}
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<RelatorioDTO> update(@PathVariable Long id, @RequestBody RelatorioDTO dto) {
+	public ResponseEntity<RelatorioDTO> update(@PathVariable Long id, @Valid @RequestBody RelatorioDTO dto) {
 		RelatorioDTO relatorio = relatorioService.update(id, dto);
 		if (relatorio == null) {
 			return ResponseEntity.notFound().build(); // 404 Not Found

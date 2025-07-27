@@ -25,13 +25,13 @@ public class RelatorioService {
 
 	@Transactional(readOnly = true)
 	public List<RelatorioDTO> findByMotorista(String motorista) {
-	    List<Relatorio> relatorios = relatorioRepository.findByMotoristaContainingIgnoreCase(motorista);
-	    if (relatorios.isEmpty()) {
-	        throw new ResourceNotFoundException("Motorista não encontrado: " + motorista);
-	    }
-	    return relatorios.stream()
-	            .map(RelatorioDTO::new)
-	            .collect(Collectors.toList());
+		List<Relatorio> relatorios = relatorioRepository.findByMotoristaContainingIgnoreCase(motorista);
+		if (relatorios.isEmpty()) {
+			throw new ResourceNotFoundException("Motorista não encontrado: " + motorista);
+		}
+		return relatorios.stream()
+				.map(RelatorioDTO::new)
+				.collect(Collectors.toList());
 	}
 
 	@Transactional(readOnly = true)
@@ -66,11 +66,12 @@ public class RelatorioService {
 			entity.setPlacaVeiculo(dto.getPlacaVeiculo());
 			entity.setValor(dto.getValor());
 			entity = relatorioRepository.save(entity);
-
 			return new RelatorioDTO(entity);
 		} catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException("Recurso não encontrado");
+			throw new ResourceNotFoundException("Recurso nao encontrado");
 		}
+
+
 	}
 
 	@Transactional(propagation = Propagation.SUPPORTS)

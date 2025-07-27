@@ -43,6 +43,21 @@ Também tenho a intenção de criar um front-end básico para complementar a apl
 - `service` — Lógica de negócio
 - `repository` — Acesso a dados (JPA)
 - `dto` — Objetos de transferência de dados
+- `exception` — Exceções personalizadas e tratamento global de erros
+
+## Validações
+
+A API utiliza validações automáticas nos DTOs para garantir a integridade dos dados recebidos. Anotações como `@NotNull`, `@Size`, `@Email`, entre outras, são usadas para validar os campos das requisições. Caso algum dado inválido seja enviado, a API retorna uma resposta detalhada informando quais campos estão incorretos e o motivo.
+
+## Tratamento Global de Exceções
+
+O projeto possui um `ControllerExceptionHandler` centralizado, responsável por capturar e tratar exceções lançadas pelos controllers.  
+Principais exceções tratadas:
+
+- **ResourceNotFoundException**: Retorna status 404 quando um recurso não é encontrado.
+- **MethodArgumentNotValidException**: Retorna status 422 com detalhes dos erros de validação dos campos.
+
+As respostas de erro são padronizadas, contendo informações como data/hora, status HTTP, mensagem e caminho da requisição, facilitando o entendimento e o consumo da API.
 
 ## Como rodar
 
