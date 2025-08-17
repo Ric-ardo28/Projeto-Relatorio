@@ -12,20 +12,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/relatorio")
+@RequestMapping(value = "/api/relatorio")
 public class RelatorioController {
 	@Autowired
 	private RelatorioService relatorioService;
 
-	@GetMapping(value = "/{motorista}")
-	public ResponseEntity<List<RelatorioDTO>> findByMotorista(@PathVariable String motorista) {
-
-		return ResponseEntity.ok(relatorioService.findByMotorista(motorista)); // 200 OK com a lista
-	}
 	@GetMapping
 	public ResponseEntity<org.springframework.data.domain.Page<RelatorioDTO>> findAll(Pageable pageable) {
 		Page<RelatorioDTO> relatorios = relatorioService.findAll(pageable);
 		return ResponseEntity.ok(relatorios); // 200 OK com a paginação
+	}
+	
+	@GetMapping(value = "/buscar/{motorista}")
+	public ResponseEntity<List<RelatorioDTO>> findByMotorista(@PathVariable String motorista) {
+		return ResponseEntity.ok(relatorioService.findByMotorista(motorista)); // 200 OK com a lista
 	}
 	@PostMapping
 	public ResponseEntity<RelatorioDTO> insert(@Valid @RequestBody RelatorioDTO dto) {

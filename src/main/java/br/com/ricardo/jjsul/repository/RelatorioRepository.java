@@ -1,11 +1,12 @@
 package br.com.ricardo.jjsul.repository;
 
-import br.com.ricardo.jjsul.entities.Relatorio;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+import br.com.ricardo.jjsul.entities.Relatorio;
 
 public interface RelatorioRepository extends JpaRepository<Relatorio, Long> {
 
-	List<Relatorio> findByMotoristaContainingIgnoreCase(String Motorista);
+	List<Relatorio> findByMotoristaContainingIgnoreCase(String motorista);
 }

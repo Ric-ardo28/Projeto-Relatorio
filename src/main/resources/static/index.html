@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Relatórios - JJSUL</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1><i class="fas fa-chart-line"></i> Sistema de Relatórios JJSUL</h1>
+            <p>Gerenciamento de relatórios de motoristas</p>
+        </header>
+
+        <main class="main-content">
+            <!-- Formulário de Cadastro -->
+            <section class="form-section">
+                <h2><i class="fas fa-plus-circle"></i> Cadastrar Novo Relatório</h2>
+                <form id="relatorioForm" class="form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="data">Data:</label>
+                            <input type="date" id="data" name="data" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="hora">Hora:</label>
+                            <input type="time" id="hora" name="hora" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="motorista">Motorista:</label>
+                            <input type="text" id="motorista" name="motorista" placeholder="Nome do motorista" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="placaVeiculo">Placa do Veículo:</label>
+                            <input type="text" id="placaVeiculo" name="placaVeiculo" placeholder="ABC1234" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="valor">Valor (R$):</label>
+                        <input type="number" id="valor" name="valor" step="0.01" placeholder="0.00" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Salvar
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="limparFormulario()">
+                            <i class="fas fa-eraser"></i> Limpar
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Busca por Motorista -->
+            <section class="search-section">
+                <h2><i class="fas fa-search"></i> Buscar por Motorista</h2>
+                <div class="search-container">
+                    <input type="text" id="searchMotorista" placeholder="Digite o nome do motorista..." class="search-input">
+                    <button onclick="buscarPorMotorista()" class="btn btn-search">
+                        <i class="fas fa-search"></i> Buscar
+                    </button>
+                </div>
+            </section>
+
+            <!-- Lista de Relatórios -->
+            <section class="list-section">
+                <div class="list-header">
+                    <h2><i class="fas fa-list"></i> Relatórios</h2>
+                    <div class="list-actions">
+                        <button onclick="carregarRelatorios()" class="btn btn-refresh">
+                            <i class="fas fa-sync-alt"></i> Atualizar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="pagination-info">
+                    <span id="paginationInfo">Mostrando 0 de 0 registros</span>
+                </div>
+
+                <div class="table-container">
+                    <table id="relatoriosTable" class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Data</th>
+                                <th>Hora</th>
+                                <th>Motorista</th>
+                                <th>Placa</th>
+                                <th>Valor</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="relatoriosTableBody">
+                            <!-- Dados serão carregados via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination">
+                    <button id="prevPage" class="btn btn-pagination" onclick="mudarPagina(-1)">
+                        <i class="fas fa-chevron-left"></i> Anterior
+                    </button>
+                    <span id="pageInfo">Página 1</span>
+                    <button id="nextPage" class="btn btn-pagination" onclick="mudarPagina(1)">
+                        Próxima <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Modal de Edição -->
+        <div id="editModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3><i class="fas fa-edit"></i> Editar Relatório</h3>
+                    <span class="close" onclick="fecharModal()">&times;</span>
+                </div>
+                <form id="editForm" class="form">
+                    <input type="hidden" id="editId">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editData">Data:</label>
+                            <input type="date" id="editData" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editHora">Hora:</label>
+                            <input type="time" id="editHora" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editMotorista">Motorista:</label>
+                            <input type="text" id="editMotorista" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editPlacaVeiculo">Placa do Veículo:</label>
+                            <input type="text" id="editPlacaVeiculo" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editValor">Valor (R$):</label>
+                        <input type="number" id="editValor" step="0.01" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Atualizar
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="fecharModal()">
+                            <i class="fas fa-times"></i> Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Toast de Notificação -->
+        <div id="toast" class="toast"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

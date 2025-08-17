@@ -1,18 +1,19 @@
 package br.com.ricardo.jjsul.service;
 
-import br.com.ricardo.jjsul.dto.RelatorioDTO;
-import br.com.ricardo.jjsul.entities.Relatorio;
-import br.com.ricardo.jjsul.exception.ResourceNotFoundException;
-import br.com.ricardo.jjsul.repository.RelatorioRepository;
-import jakarta.persistence.EntityNotFoundException;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import br.com.ricardo.jjsul.dto.RelatorioDTO;
+import br.com.ricardo.jjsul.entities.Relatorio;
+import br.com.ricardo.jjsul.exception.ResourceNotFoundException;
+import br.com.ricardo.jjsul.repository.RelatorioRepository;
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class RelatorioService {
@@ -37,7 +38,7 @@ public class RelatorioService {
 	@Transactional(readOnly = true)
 	public Page<RelatorioDTO> findAll(Pageable pageable) {
 		Page<Relatorio> relatorios = relatorioRepository.findAll(pageable);
-		return relatorios.map((java.util.function.Function<? super Relatorio, ? extends RelatorioDTO>) RelatorioDTO::new);
+		return relatorios.map(RelatorioDTO::new);
 	}
 
 	@Transactional
