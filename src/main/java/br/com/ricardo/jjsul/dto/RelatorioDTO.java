@@ -15,7 +15,7 @@ import java.time.LocalTime;
 public class RelatorioDTO {
 
 
-	private Long id;
+
 	@PastOrPresent(message = "A data não pode ser futura")
 	private LocalDate data;
 	private LocalTime hora;
@@ -24,7 +24,7 @@ public class RelatorioDTO {
 	private Double valor;
 
 	public RelatorioDTO(Relatorio entity){
-		id = entity.getId();
+
 		data = entity.getData();
 		hora = entity.getHora();
 		motorista = entity.getMotorista();
